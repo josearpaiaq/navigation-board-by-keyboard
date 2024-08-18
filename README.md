@@ -4,7 +4,7 @@ This a website where you can navigate a board by pushing your arrow keyboards.
 
 ## Requisites
 
-- node => 18
+- node >= 18
 
 ## Installation
 
