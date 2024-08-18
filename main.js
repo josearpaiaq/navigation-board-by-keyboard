@@ -3,15 +3,14 @@ import "./style.css";
 const $ = (selector) => document.querySelector(selector);
 const $app = $("#app");
 
-const BOARD = [
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-];
+const COLUMNS = 10;
+const ROWS = 5;
+
+const BOARD = Array.from({ length: ROWS }, (_, i) => {
+  return Array.from({ length: COLUMNS }, (_, j) => {
+    return i * 10 + j + 1;
+  });
+});
 
 let CURRENT_FOCUS_POSITION = {
   x: 0,
@@ -44,36 +43,45 @@ function moveFocusByKeyboard() {
     let nextY = null;
     let nextX = null;
     let boardLimitX = null;
+    let boardLimitY = null;
     const { key } = event;
-    switch (key) {
-      case "ArrowLeft":
-        nextY = currY - 1;
-        if (nextY >= 0) {
-          setFocus({ x: currX, y: nextY });
-        }
-        break;
-      case "ArrowRight":
-        nextY = currY + 1;
-        boardLimitX = BOARD[currX].length;
-        if (nextY < boardLimitX) {
-          setFocus({ x: currX, y: nextY });
-        }
-        break;
-      case "ArrowUp":
-        nextX = currX - 1;
-        if (nextX >= 0) {
-          setFocus({ x: nextX, y: currY });
-        }
-        break;
-      case "ArrowDown":
-        nextX = currX + 1;
-        boardLimitX = BOARD[currX].length;
-        if (nextX < boardLimitX - 1) {
-          setFocus({ x: nextX, y: currY });
-        }
-        break;
-      default:
-        break;
+
+    // move left
+    if (key === "ArrowLeft" || key === "a") {
+      nextY = currY - 1;
+
+      if (nextY >= 0) {
+        setFocus({ x: currX, y: nextY });
+      }
+    }
+
+    // move right
+    if (key === "ArrowRight" || key === "d") {
+      nextY = currY + 1;
+
+      boardLimitX = BOARD[currX].length;
+      if (nextY < boardLimitX) {
+        setFocus({ x: currX, y: nextY });
+      }
+    }
+
+    // move up
+    if (key === "ArrowUp" || key === "w") {
+      nextX = currX - 1;
+
+      if (nextX >= 0) {
+        setFocus({ x: nextX, y: currY });
+      }
+    }
+
+    // move down
+    if (key === "ArrowDown" || key === "s") {
+      nextX = currX + 1;
+      boardLimitY = BOARD.length;
+
+      if (nextX < boardLimitY) {
+        setFocus({ x: nextX, y: currY });
+      }
     }
   });
 }
@@ -102,6 +110,7 @@ function initBoard() {
       $cell.id = `cell-${i}-${j}`;
       $cell.setAttribute("data-i", i);
       $cell.setAttribute("data-j", j);
+      $cell.innerHTML = BOARD[i][j] ?? "";
       $row.appendChild($cell);
 
       $cell.addEventListener("click", handleClickCell);

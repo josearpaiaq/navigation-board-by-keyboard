@@ -54,8 +54,27 @@ body {
   height: 100%;
   border: 1px solid #ccc;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(145deg, #941b1b, #7c1717);
+  box-shadow:  5px 5px 10px #5b1111,
+              -5px -5px 10px #b92222;
 }
 
 .focus {
-  background-color: #CCCCCC90;
+  transition: all 0.3s ease;
+  animation: blink 0.7s linear infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
