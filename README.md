@@ -17,7 +17,7 @@ npm install
 
 ## Start dev environment
 
-```python
+```bash
 npm run dev
 ```
 
