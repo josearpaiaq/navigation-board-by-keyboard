@@ -1,6 +1,6 @@
 # Navigation by Keyboard
 
-This a website where you can navigate a board by pushing your arrow keyboards.
+This is a website where you can navigate a board by pushing your arrow keyboards.
 
 ## Requisites
 
